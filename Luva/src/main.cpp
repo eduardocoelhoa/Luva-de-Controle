@@ -1,28 +1,17 @@
 #include <Arduino.h>
-#include "mpu.h"
+#include "Orchestrator.h"
 
-MPU6050 mpu(Wire, 0.98, 0.02);
+// MAC Address do receptor (Carrinho)
+const uint8_t macDoCarro[] = {0x5C, 0x01, 0x3B, 0x9D, 0x74, 0x2C};
+
+// Instancia o orquestrador com os pinos SDA(21), SCL(22) e o MAC
+Orchestrator controleLuva(21, 22, macDoCarro);
 
 void setup() {
-
-	Serial.begin(115200);
-	Wire.begin();
-	mpu.begin();
-	mpu.calibrate(true);
+    Serial.begin(115200);
+    controleLuva.begin();
 }
 
-void loop(){
-	// Atualiza todos os dados
-	mpu.update();  
-
-	// Lê os ângulos de orientação
-	float roll = mpu.getAngleX();
-	float pitch = mpu.getAngleY();
-	float yaw = mpu.getAngleZ();
-
-	Serial.print("Roll: "); Serial.print(roll);
-	Serial.print(" | Pitch: "); Serial.print(pitch);
-	Serial.print(" | Yaw: "); Serial.println(yaw);
-
-	delay(10);
-}
+void loop() {
+    controleLuva.loop();
+    delay(50); // Delay mantido para não saturar a rede Wi-Fi
