@@ -1,0 +1,28 @@
+{
+        "cSpell.words": [
+                "arduino",
+                "Calibracao",
+                "Coef",
+                "Concluida",
+                "datasheet",
+                "devkit",
+                "DLPF",
+                "espressif",
+                "Giroscopio",
+                "Kalman",
+                "MGMT",
+                "millis",
+                "println",
+                "Sensoral",
+                "SMPLRT",
+                "Xoffset",
+                "XOUT",
+                "Yoffset",
+                "YOUT",
+                "Zoffset",
+                "ZOUT",
+                "Δângulo",
+                "Δgyro",
+                "Δtempo"
+        ]
+}
