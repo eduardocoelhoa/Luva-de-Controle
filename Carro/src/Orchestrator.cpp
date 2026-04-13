@@ -1,8 +1,7 @@
 #include "Orchestrator.h"
 
-// Inicializa o chassi com os pinos: ENA(14), ENB(27), IN1(2), IN2(4), IN3(5), IN4(18)
-// *Ajuste os pinos 14 e 27 aqui conforme a sua montagem real!*
-Orchestrator::Orchestrator() : chassi(14, 27, 2, 4, 5, 18) {} 
+// Inicializa o chassi com os pinos: ENA(14), ENB(27), IN1(5), IN2(18), IN3(2), IN4(4)
+Orchestrator::Orchestrator() : chassi(14, 27, 5, 18, 2, 4) {}
 
 void Orchestrator::begin() {
     chassi.begin();

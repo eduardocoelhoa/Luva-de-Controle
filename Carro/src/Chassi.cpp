@@ -23,7 +23,7 @@ void Chassi::driveArcade(int x, int y) {
     int velDir = constrain(aceleracao - direcao, -255, 255);
 
     // 4. Delega a ação
-    motorEsquerdo.setVelocidade(velEsq);
+    motorEsquerdo.setVelocidade(velEsq * 0.65);
     motorDireito.setVelocidade(velDir);
 }
 

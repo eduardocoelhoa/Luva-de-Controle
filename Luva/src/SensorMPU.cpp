@@ -18,7 +18,7 @@ void SensorMPU::update() {
 }
 
 int SensorMPU::getEixoX() {
-    return mpu.getAngleX(); // Mapeia inclinação frente/trás
+    return -mpu.getAngleX(); // Mapeia inclinação frente/trás
 }
 
 int SensorMPU::getEixoY() {

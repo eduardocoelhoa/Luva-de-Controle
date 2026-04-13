@@ -15,3 +15,4 @@ void setup() {
 void loop() {
     controleLuva.loop();
     delay(50); // Delay mantido para não saturar a rede Wi-Fi
+}
