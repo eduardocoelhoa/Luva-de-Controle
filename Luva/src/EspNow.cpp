@@ -11,7 +11,14 @@ EspNow::EspNow(const uint8_t* mac) {
 
 void EspNow::begin() {
     WiFi.mode(WIFI_STA);
-    esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE);
+
+    if (WiFi.status() != WL_CONNECTED) {
+        // Sem Wi-Fi conectado, mantém o canal fixo usado pelo projeto.
+        esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE);
+    } else {
+        // Com OTA ativo, o canal segue o do AP conectado.
+        Serial.printf("Wi-Fi conectado no canal %d para OTA e ESP-NOW.\n", WiFi.channel());
+    }
 
     if (esp_now_init() != ESP_OK) {
         Serial.println("Erro ao iniciar ESP-NOW (Transmissor)");
@@ -23,7 +30,7 @@ void EspNow::begin() {
     // Configura as informações do par (Carrinho)
     esp_now_peer_info_t peerInfo = {};
     memcpy(peerInfo.peer_addr, macDestino, 6);
-    peerInfo.channel = 0;  
+    peerInfo.channel = 0;
     peerInfo.encrypt = false;
     
     if (esp_now_add_peer(&peerInfo) != ESP_OK) {
