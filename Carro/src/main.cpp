@@ -11,5 +11,4 @@ void setup() {
 
 void loop() {
     roboCarro.loop();
-    delay(20);
 }

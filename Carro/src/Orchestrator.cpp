@@ -4,16 +4,33 @@
 Orchestrator::Orchestrator() : chassi(14, 27, 5, 18, 2, 4) {}
 
 void Orchestrator::begin() {
-    chassi.begin();
-    comms.begin();
-    Serial.println("Orquestrador iniciado com sucesso. Aguardando Luva...");
+    otaService.begin();
 }
 
 void Orchestrator::loop() {
+    otaService.update();
+
+    if (!coreStarted && otaService.isResolved()) {
+        chassi.begin();
+        comms.begin();
+        coreStarted = true;
+        Serial.println("Orquestrador iniciado com sucesso. Aguardando Luva...");
+    }
+
+    if (!coreStarted) {
+        return;
+    }
+
+    const unsigned long now = millis();
+    if (now - lastLoopMs < kLoopIntervalMs) {
+        return;
+    }
+    lastLoopMs = now;
+
     // 1. Verifica Failsafe (Segurança)
     if (millis() - comms.getLastRecvTime() > 500) {
         chassi.stop();
-    } 
+    }
     // 2. Transfere os dados do rádio para o chassi
     else {
         CarData dados = comms.getData();
