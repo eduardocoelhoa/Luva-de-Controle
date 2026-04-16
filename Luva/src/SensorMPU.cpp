@@ -9,8 +9,12 @@ SensorMPU::SensorMPU(uint8_t sda, uint8_t scl) : mpu(Wire) {
 void SensorMPU::begin() {
     Wire.begin(p_sda, p_scl);
     mpu.begin();
+
+    digitalWrite(LED_BUILTIN, HIGH); // Acende o LED para indicar que está calibrando
     Serial.println("CALIBRANDO SENSOR...");
     mpu.calcGyroOffsets(true); // Calibra ao ligar
+    Serial.println("SENSOR CALIBRADO!");
+    digitalWrite(LED_BUILTIN, LOW); // Apaga o LED para indicar que terminou a calibração
 }
 
 void SensorMPU::update() {

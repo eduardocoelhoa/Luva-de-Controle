@@ -4,9 +4,7 @@ Orchestrator::Orchestrator(uint8_t pinSda, uint8_t pinScl, const uint8_t* macCar
     : sensor(pinSda, pinScl), espnow(macCarro) {}
 
 void Orchestrator::begin() {
-    sensor.begin(); // O sensor vai calibrar aqui
-    espnow.begin();
-    Serial.println("Luva pronta e orquestrador iniciado!");
+    otaService.begin();
 }
 
 int Orchestrator::movingAverage(int valor, int* buffer, int& index, int& count) {
@@ -25,6 +23,25 @@ int Orchestrator::movingAverage(int valor, int* buffer, int& index, int& count) 
 }
 
 void Orchestrator::loop() {
+    otaService.update();
+
+    if (!coreStarted && otaService.isResolved()) {
+        sensor.begin(); // O sensor vai calibrar aqui
+        espnow.begin();
+        coreStarted = true;
+        Serial.println("Luva pronta e orquestrador iniciado!");
+    }
+
+    if (!coreStarted) {
+        return;
+    }
+
+    const unsigned long now = millis();
+    if (now - lastLoopMs < kLoopIntervalMs) {
+        return;
+    }
+    lastLoopMs = now;
+
     // 1. Atualiza leituras
     sensor.update();
 
