@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "Orchestrator.h"
 
 // Instancia o Orquestrador globalmente

@@ -10,7 +10,7 @@ void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len) {
     tempoUltimoPacote = millis();
 }
 
-void EspNowManager::begin() {
+void EspNow::begin() {
     WiFi.mode(WIFI_STA);
     esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE);
 
@@ -21,10 +21,10 @@ void EspNowManager::begin() {
     esp_now_register_recv_cb(OnDataRecv);
 }
 
-CarData EspNowManager::getData() {
+CarData EspNow::getData() {
     return dadosAtuais;
 }
 
-unsigned long EspNowManager::getLastRecvTime() {
+unsigned long EspNow::getLastRecvTime() {
     return tempoUltimoPacote;
 }

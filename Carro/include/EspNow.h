@@ -8,11 +8,12 @@
 #include "CarData.h"
 
 
-class EspNowManager {
-public:
-    void begin();
-    CarData getData();
-    unsigned long getLastRecvTime();
+class EspNow {
+
+    public:
+        void begin();
+        CarData getData();
+        unsigned long getLastRecvTime();
 };
 
 #endif
