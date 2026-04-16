@@ -3,11 +3,13 @@
 
 #include "Chassi.h"
 #include "EspNow.h"
+#include "Ultrassonic.h"
 
 class Orchestrator {
 private:
     Chassi chassi;
-    EspNowManager comms;
+    EspNow espnow;
+    Ultrassonic ultrassonic;
 
     public:
         Orchestrator();
